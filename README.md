@@ -1,2 +1,4 @@
 # Data-Structure-Fundamantal
-Homework of basic course of data structure in Zhejiang University.
+Basic course of data structure in Zhejiang University.
+
+> For reference only, do not copy！！！
