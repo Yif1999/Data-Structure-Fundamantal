@@ -4,18 +4,18 @@
 #define MAX 505
 
 struct City{
-	int city1,city2;	//Á½³ÇÊĞ±àºÅ
-	int cost,status;	//costÎªĞŞ¸´»¨Ïú£¬statusÎªÍ¨¶ÏÇé¿ö
-};	//¿ª±Ù´æ´¢½á¹¹
+	int city1,city2;	//ä¸¤åŸå¸‚ç¼–å·
+	int cost,status;	//costä¸ºä¿®å¤èŠ±é”€ï¼Œstatusä¸ºé€šæ–­æƒ…å†µ
+};	//å¼€è¾Ÿå­˜å‚¨ç»“æ„
 
-int parent(int t,int S[]){	//Â·¾¶Ñ¹Ëõ²éÕÒ£¨Findº¯Êı»»ÁË¸öÃû×Ö£©
+int parent(int t,int S[]){	//è·¯å¾„å‹ç¼©æŸ¥æ‰¾ï¼ˆFindå‡½æ•°æ¢äº†ä¸ªåå­—ï¼‰
 	if (S[t]==t)
 		return t;
 	else
 		return S[t]=parent(S[t],S);
 }
  
-void Union(int a,int b,int S[]){	//²¢²é¼¯Á¬½á
+void Union(int a,int b,int S[]){	//å¹¶æŸ¥é›†è¿ç»“
 	int tmp1,tmp2;
 	tmp1=parent(a,S);
 	tmp2=parent(b,S);
@@ -24,14 +24,14 @@ void Union(int a,int b,int S[]){	//²¢²é¼¯Á¬½á
 	S[tmp1]=tmp2;
 }
 
-int compare(struct City a,struct City b){	//ÓÃÓÚÔÚ¶ÑÅÅĞòÖĞ±È½ÏÅĞ¶Ï»¨ÏúµÄº¯Êı
+int compare(struct City a,struct City b){	//ç”¨äºåœ¨å †æ’åºä¸­æ¯”è¾ƒåˆ¤æ–­èŠ±é”€çš„å‡½æ•°
 	if (a.status!=b.status)
 		return b.status-a.status;
 	else
 		return a.cost-b.cost;
 }
 
-void PercDown(struct City W[],int P,int M){	//¶ÑÅÅĞòÖĞµÄPercDownº¯Êı
+void PercDown(struct City W[],int P,int M){	//å †æ’åºä¸­çš„PercDownå‡½æ•°
 	int parent,child;
 	struct City Tmp;
 	Tmp=W[P];
@@ -50,7 +50,7 @@ void PercDown(struct City W[],int P,int M){	//¶ÑÅÅĞòÖĞµÄPercDownº¯Êı
 	W[parent]=Tmp;
 }
 
-void HeapSort(struct City W[],int M){	//¶Ô»¨Ïú½øĞĞ¶ÑÅÅĞò
+void HeapSort(struct City W[],int M){	//å¯¹èŠ±é”€è¿›è¡Œå †æ’åº
 	int i;
 	struct City Tmp;
 	for (i=M/2-1;i>=0;i--){
@@ -69,37 +69,37 @@ int main(){
 	scanf ("%d %d",&N,&M);
 	int S[N+1],cost[N+1];
 	struct City way[M+1];
-	//¶ÁÈë³õÊ¼²ÎÊı¿ª±Ù¿Õ¼ä
+	//è¯»å…¥åˆå§‹å‚æ•°å¼€è¾Ÿç©ºé—´
 	int i=1;
-	while (i<N+1){	//¶Ô¼ÇÂ¼¿ªÏúµÄcostÊı×é½øĞĞ³õÊ¼»¯¹éÁã	
+	while (i<N+1){	//å¯¹è®°å½•å¼€é”€çš„costæ•°ç»„è¿›è¡Œåˆå§‹åŒ–å½’é›¶	
 		cost[i]=0;
 		i++;
 	}
 	
 	for (i=0;i<M;i++){
 		scanf("%d %d %d %d",&way[i].city1,&way[i].city2,&way[i].cost,&way[i].status);
-	}	//¶ÁÈëÃ¿Ò»ĞĞÊäÈë
+	}	//è¯»å…¥æ¯ä¸€è¡Œè¾“å…¥
 	
-	HeapSort(way,M);	//¶ÑÅÅĞò
+	HeapSort(way,M);	//å †æ’åº
 	
 	int j,k,max_cost=0;
 	for (i=1;i<N+1;i++){
 		
 		j=1;
-		while(j<N+1){	//³õÊ¼»¯
+		while(j<N+1){	//åˆå§‹åŒ–
 			S[j]=j;
 			j++;
 		}
 		
 		j=0;
 		while (j<M){
-			if (!(way[j].city1==i || way[j].city2==i)){	//¸ù¾İÁ´½ÓÇé¿öÔÚ²¢²é¼¯ÖĞÁ¬½áÏàÓ¦³ÇÊĞ
-				if (way[j].status==1)	//¹«Â·ÍêºÃ
-					Union(way[j].city1,way[j].city2,S);	//ÔÚ¼¯ºÏÖĞÁ¬½á³ÇÊĞ
+			if (!(way[j].city1==i || way[j].city2==i)){	//æ ¹æ®é“¾æ¥æƒ…å†µåœ¨å¹¶æŸ¥é›†ä¸­è¿ç»“ç›¸åº”åŸå¸‚
+				if (way[j].status==1)	//å…¬è·¯å®Œå¥½
+					Union(way[j].city1,way[j].city2,S);	//åœ¨é›†åˆä¸­è¿ç»“åŸå¸‚
 				else
-					if (parent(way[j].city1,S)!=parent(way[j].city2,S)){	//Èô²»Á¬Í¨ÔòĞèÒªĞŞ¸´¹«Â·
-						Union(way[j].city1,way[j].city2,S);	//ĞŞ¸´¹«Â·Á¬½á¼¯ºÏ
-						cost[i]=cost[i]+way[j].cost;	//»¨ÏúÀÛ¼Ó
+					if (parent(way[j].city1,S)!=parent(way[j].city2,S)){	//è‹¥ä¸è¿é€šåˆ™éœ€è¦ä¿®å¤å…¬è·¯
+						Union(way[j].city1,way[j].city2,S);	//ä¿®å¤å…¬è·¯è¿ç»“é›†åˆ
+						cost[i]=cost[i]+way[j].cost;	//èŠ±é”€ç´¯åŠ 
 					}
 			}
 			j++;
@@ -109,22 +109,22 @@ int main(){
 			if (j!=i){
 				for (k=1;k<N+1;k++)
 					if((k!=i) && (parent(j,S)!=parent(k,S))){
-						cost[i]=INFINITY;	//ÉèÖÃÉÚ±ø
+						cost[i]=INFINITY;	//è®¾ç½®å“¨å…µ
 						break;
 					}
 				break;
 			}		
 		}
-		while (cost[i]>max_cost){	//²éÕÒ×î´ó»¨ÏúµÄ³ÇÊĞ
+		while (cost[i]>max_cost){	//æŸ¥æ‰¾æœ€å¤§èŠ±é”€çš„åŸå¸‚
 			max_cost=cost[i];
 		}
 	} 
 	
-	if (max_cost==0){	//Èç¹û×î´ó»¨ÏúÎª0ÔòÌø³öÑ­»·
+	if (max_cost==0){	//å¦‚æœæœ€å¤§èŠ±é”€ä¸º0åˆ™è·³å‡ºå¾ªç¯
 		printf("0");
 		return 0;
 	}
-	int first=1;	//°´¸ñÊ½Êä³öĞŞ¸´»¨Ïú×î´óµÄ¼¸¸ö³ÇÊĞ±àºÅ
+	int first=1;	//æŒ‰æ ¼å¼è¾“å‡ºä¿®å¤èŠ±é”€æœ€å¤§çš„å‡ ä¸ªåŸå¸‚ç¼–å·
 	for (i=1;i<N+1;i++){
 		if (cost[i]==max_cost){
 			if (first){
@@ -138,4 +138,3 @@ int main(){
 		
 	return 0;
 }
-//ì¶âø·á 3180101376
